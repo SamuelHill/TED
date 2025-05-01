@@ -830,6 +830,7 @@ namespace TED.Interpreter
         /// Write the values from the pattern out to a row in a table after a successful match
         /// </summary>
         public void Write(out (T1, T2, T3, T4, T5, T6, T7, T8) target) {
+            target = (default, default, default, default, default, default, default, default)!;
             Arg1.Write(out target.Item1);
             Arg2.Write(out target.Item2);
             Arg3.Write(out target.Item3);

@@ -363,6 +363,10 @@ namespace TED {
         /// Combined average execution time of all the rules for this predicate.
         /// </summary>
         public float RuleExecutionTime => Rules == null?0:Rules.Select(r => r.AverageExecutionTime).Sum();
+        /// <summary>
+        /// Combined average execution time for each rule (regardless of predicate).
+        /// </summary>
+        public IEnumerable<(Rule, float)> RuleExecutionTimes => Rules == null? Array.Empty<(Rule, float)>():Rules.Select(r => (r, r.AverageExecutionTime));
         #endif
 
         /// <summary>
@@ -4800,9 +4804,7 @@ namespace TED {
                 4 => (Func<uint, TColumn>)(Delegate)(Func<uint,T5>)(rowNum => _table.Data[rowNum].Item5),
                 5 => (Func<uint, TColumn>)(Delegate)(Func<uint,T6>)(rowNum => _table.Data[rowNum].Item6),
                 6 => (Func<uint, TColumn>)(Delegate)(Func<uint,T7>)(rowNum => _table.Data[rowNum].Item7),
-                // VS says there's a type error here because it thinks Item8 returns T1 rather than T8
-                // but the code compiles fine.
-                7 => (Func<uint, TColumn>)(Delegate)(Func<uint,T8>)(rowNum => _table.Data[rowNum].Item8),
+                7 => (Func<uint, TColumn>)(Delegate)(Func<uint,T8>)(rowNum => _table.Data[rowNum].Rest.Item1),
                 _ => throw new ArgumentException($"There is no column number {columnNumber} in table {Name}")
             };
         }
