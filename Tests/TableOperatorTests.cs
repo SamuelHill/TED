@@ -131,6 +131,27 @@ namespace Tests
             foreach (var assignment in assignments)
                 Assert.IsTrue(candidates.Table.ContainsRowUsingRowSet(assignment));
         }
+        
+        [TestMethod]
+        public void AssignBetweenTest()
+        {
+            var f = (Var<string>)"f";
+            var m = (Var<string>)"m";
+            var candidates = Predicate("candidates", f);
+            var toAssign = Predicate("toAssign", m);
+            candidates.Unique = true;
+            var assignments = AssignBetween("assignments", candidates, toAssign);
+            candidates.AddRow("jenny");
+            candidates.AddRow("sally");
+            toAssign.AddRow("bill");
+            toAssign.AddRow("george");
+            toAssign.AddRow("pat");
+            Assert.AreEqual(2, assignments.Count());
+            foreach (var assignment in assignments) {
+                Assert.IsTrue(assignment.Item1 != null, "Column 1 (from candidates) has value null");
+                Assert.IsTrue(assignment.Item2 != null, "Column 2 (from candidates) has value null");
+            }
+        }
 
         [TestMethod]
         public void AssignGreedilyTest()

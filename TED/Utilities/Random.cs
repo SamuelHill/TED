@@ -1,4 +1,7 @@
 ﻿
+using System.Collections.Generic;
+using System.Linq;
+
 namespace TED.Utilities
 {
     /// <summary>
@@ -40,5 +43,17 @@ namespace TED.Utilities
         /// Return a random integer from start to end-1.
         /// </summary>
         public static int InRangeExclusive(this System.Random rng, int start, int end) => start + rng.Next() % (end - start);
+        
+        /// <summary>
+        /// Return the input sequence shuffled.
+        /// </summary>
+        public static T[] Shuffle<T>(this IEnumerable<T> sequence, System.Random rng) {
+            var result = sequence.ToArray();
+            for (var i = result.Length - 1; i > 0; i--) {
+                var index = rng.Next(i + 1);
+                (result[index], result[i]) = (result[i], result[index]);
+            }
+            return result;
+        }
     }
 }

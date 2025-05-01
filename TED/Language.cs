@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using TED.Interpreter;
 using TED.Primitives;
 using TED.Tables;
@@ -2030,6 +2031,22 @@ namespace TED
                     },
                     (Var<T1>)candidates.DefaultVariables[0],
                     (Var<T2>)candidates.DefaultVariables[1]) 
+                { OperatorDependencies = new[] { candidates } };
+        }
+        
+        public static TablePredicate<T1, T2> AssignBetween<T1, T2>(string name, TablePredicate<T1> candidates, TablePredicate<T2> toAssign) {
+            var rng = new System.Random();
+            var candidateList = new List<T1>();
+            return new TablePredicate<T1, T2>(
+                    name, (tab) => {
+                        var table = (Table<(T1,T2)>)tab;
+                        candidateList.AddRange(candidates.Table.Shuffle(rng));
+                        for (var i = 0; i < (candidates.Length > toAssign.Length ? toAssign.Length : candidates.Length); i++)
+                            table.Add((candidateList[i], toAssign.Table.Data[i]));
+                        candidateList.Clear();
+                    },
+                    (Var<T1>)candidates.DefaultVariables[0],
+                    (Var<T2>)toAssign.DefaultVariables[0]) 
                 { OperatorDependencies = new[] { candidates } };
         }
 
