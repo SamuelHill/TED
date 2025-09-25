@@ -133,6 +133,11 @@ namespace TED {
         }
 
         /// <summary>
+        /// Clear this base table before appending to it.
+        /// </summary>
+        public bool ClearBeforeAppend;
+
+        /// <summary>
         /// Human-readable descriptions of columns
         /// </summary>
         public readonly string[] ColumnHeadings;
@@ -1170,6 +1175,7 @@ namespace TED {
 
         internal override void AppendInputs() {
             if (inputs == null) return;
+            if (ClearBeforeAppend) Clear();
             foreach (var input in inputs) Append(input);
         }
 
@@ -1472,6 +1478,7 @@ namespace TED {
 
         internal override void AppendInputs() {
             if (inputs == null) return;
+            if (ClearBeforeAppend) Clear();
             foreach (var input in inputs) Append(input);
         }
 
@@ -1970,6 +1977,7 @@ namespace TED {
 
         internal override void AppendInputs() {
             if (inputs == null) return;
+            if (ClearBeforeAppend) Clear();
             foreach (var input in inputs) Append(input);
         }
 
@@ -2456,6 +2464,7 @@ namespace TED {
 
         internal override void AppendInputs() {
             if (inputs == null) return;
+            if (ClearBeforeAppend) Clear();
             foreach (var input in inputs) Append(input);
         }
 
@@ -2972,6 +2981,7 @@ namespace TED {
 
         internal override void AppendInputs() {
             if (inputs == null) return;
+            if (ClearBeforeAppend) Clear();
             foreach (var input in inputs) Append(input);
         }
 
@@ -3522,6 +3532,7 @@ namespace TED {
 
         internal override void AppendInputs() {
             if (inputs == null) return;
+            if (ClearBeforeAppend) Clear();
             foreach (var input in inputs) Append(input);
         }
 
@@ -4106,6 +4117,7 @@ namespace TED {
 
         internal override void AppendInputs() {
             if (inputs == null) return;
+            if (ClearBeforeAppend) Clear();
             foreach (var input in inputs) Append(input);
         }
 
@@ -4729,6 +4741,7 @@ namespace TED {
 
         internal override void AppendInputs() {
             if (inputs == null) return;
+            if (ClearBeforeAppend) Clear();
             foreach (var input in inputs) Append(input);
         }
 

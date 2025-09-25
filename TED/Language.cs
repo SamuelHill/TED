@@ -2541,5 +2541,13 @@ namespace TED
             return $"{name}{uid}";
         }
         #endregion
+
+        #region Miscellaneous
+        public static TablePredicate<T1> Delay<T1>(TablePredicate<T1> p) {
+            var delayed = new TablePredicate<T1>($"{p.Name}Delayed", (Var<T1>)p.DefaultVariables[0]) { ClearBeforeAppend = true };
+            delayed.Accumulates(p);
+            return delayed;
+        }
+        #endregion
     }
 }
